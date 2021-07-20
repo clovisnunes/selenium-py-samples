@@ -7,10 +7,13 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.common.exceptions import TimeoutException
 
+import datetime
+import os
+
 # TODO
-# Create dir for save screenshots
-# Generate pdf report
+# Roll screen to web element
 # Make unit tests (unittest)
+# Generate pdf report
 
 chrome_options = Options()
 chrome_options.add_argument("--start-maximized")
@@ -30,6 +33,9 @@ def wait_get_by_xpath(xpath):
     
     return element
 
+folder_ss = str(datetime.datetime.now().timestamp())
+os.mkdir(folder_ss)
+full_folder_ss = os.getcwd() + '\\' + folder_ss + '\\'
 n = 0
 def screen_counter():
     global n
@@ -37,7 +43,7 @@ def screen_counter():
     return n
 
 wait_get_by_xpath("//img[@alt='Google']")
-driver.save_screenshot('screenshot' + str(screen_counter()) + '.png')
+driver.save_screenshot(full_folder_ss + 'screenshot' + str(screen_counter()) + '.png')
 
 field_search = driver.find_element_by_xpath("//input[@name='q']")
 
@@ -45,10 +51,10 @@ if(field_search.is_enabled() and field_search.is_displayed()):
     field_search.send_keys("python")
 
 option_list = wait_get_by_xpath("(//ul/li//span[text()='python'])[1]")
-driver.save_screenshot('screenshot' + str(screen_counter()) + '.png')
+driver.save_screenshot(full_folder_ss + 'screenshot' + str(screen_counter()) + '.png')
 option_list.click()
 
 python_result = wait_get_by_xpath("//h3[text()='Welcome to Python.org']")
-driver.save_screenshot('screenshot' + str(screen_counter()) + '.png')
+driver.save_screenshot(full_folder_ss + 'screenshot' + str(screen_counter()) + '.png')
 
 driver.quit()
