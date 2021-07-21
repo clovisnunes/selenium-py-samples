@@ -11,7 +11,6 @@ import datetime
 import os
 
 # TODO
-# Roll screen to web element
 # Make unit tests (unittest)
 # Generate pdf report
 
@@ -56,7 +55,6 @@ driver.save_screenshot(full_folder_ss + 'screenshot' + str(screen_counter()) + '
 option_list.click()
 
 python_result = wait_get_by_xpath("//h3[text()='Welcome to Python.org']")
-driver.save_screenshot(full_folder_ss + 'screenshot' + str(screen_counter()) + '.png')
 
 actions.move_to_element(python_result).perform()
 driver.save_screenshot(full_folder_ss + 'screenshot' + str(screen_counter()) + '.png')
