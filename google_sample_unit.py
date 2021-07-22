@@ -8,6 +8,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import TimeoutException
 
 import unittest
+import xmlrunner
+import HtmlTestRunner
 import datetime
 import os
 
@@ -39,8 +41,10 @@ class GoogleTestCase(unittest.TestCase):
 
         # creating folder to screenshots
         folder_ss = str(datetime.datetime.now().timestamp())
-        os.mkdir(folder_ss)
-        self.full_folder_ss = os.getcwd() + '\\' + folder_ss + '\\'
+        if not os.path.exists('test_evidences'):
+            os.mkdir('test_evidences')
+        os.mkdir('test_evidences\\' + folder_ss)
+        self.full_folder_ss = os.getcwd() + '\\test_evidences\\' + folder_ss + '\\'
         self.n = 0
 
     def test_result_list(self):
@@ -57,14 +61,28 @@ class GoogleTestCase(unittest.TestCase):
         self.driver.save_screenshot(self.full_folder_ss + 'screenshot' + str(screen_counter(self)) + '.png')
         option_list.click()
 
-        python_result = wait_get_by_xpath(self, "//h3[text()='Welcome to Python.org']")
+        python_result = wait_get_by_xpath(self, "//h3[text()='Welcome to Python.org']/../../..")
         self.actions.move_to_element(python_result).perform()
         self.assertTrue(python_result.is_displayed() and python_result.is_enabled())
         self.driver.save_screenshot(self.full_folder_ss + 'screenshot' + str(screen_counter(self)) + '.png')
     
+    @unittest.skip("Skipping sample test")
     def test_another_test(self):
         # another test in the module
         pass
 
     def tearDown(self):
         self.driver.quit()
+
+if __name__ == '__main__':
+    # with HtmlTestRunner
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
+
+    """
+    WITH XMLRUNNER
+    unittest.main(
+        testRunner=xmlrunner.XMLTestRunner(output='test-reports'),
+        # these make sure that some options that are not applicable
+        # remain hidden from the help menu.
+        failfast=False, buffer=False, catchbreak=False)
+    """

@@ -11,8 +11,10 @@ import datetime
 import os
 
 # TODO
-# Make unit tests (unittest)
-# Generate pdf report
+# Generate pdf with evidences
+# Include errors cause in pdf
+# Adjust ss range (pyautogui)
+# Adjust ss focus
 
 chrome_options = Options()
 chrome_options.add_argument("--start-maximized")
@@ -54,7 +56,7 @@ option_list = wait_get_by_xpath("(//ul/li//span[text()='python'])[1]")
 driver.save_screenshot(full_folder_ss + 'screenshot' + str(screen_counter()) + '.png')
 option_list.click()
 
-python_result = wait_get_by_xpath("//h3[text()='Welcome to Python.org']")
+python_result = wait_get_by_xpath("//h3[text()='Welcome to Python.org']/../../..")
 
 actions.move_to_element(python_result).perform()
 driver.save_screenshot(full_folder_ss + 'screenshot' + str(screen_counter()) + '.png')
