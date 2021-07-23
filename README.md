@@ -1,5 +1,5 @@
 # TODO
 - Generate pdf with evidences
-- Include errors cause in pdf
+- Error report in the pdf with evidences
 - Adjust ss range (pyautogui)
 - Adjust ss focus
